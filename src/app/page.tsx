@@ -3,6 +3,16 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
+import { 
+  FaHome, 
+  FaCogs, 
+  FaUserTie, 
+  FaEnvelope, 
+  FaGlobe, 
+  FaExclamationTriangle,
+  FaUser,
+  FaEnvelopeOpen
+} from 'react-icons/fa';
 import '../i18n';
 
 // 言語切り替えコンポーネント
@@ -167,9 +177,9 @@ export default function Home() {
             
             {/* 重要なお知らせ */}
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-r-lg">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <span className="text-yellow-400 text-xl">⚠️</span>
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-0.5">
+                  <FaExclamationTriangle className="text-yellow-500 text-xl" />
                 </div>
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-yellow-800">
@@ -261,7 +271,9 @@ export default function Home() {
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto text-center">
               <p className="text-gray-700 mb-6">{t('contact.method')}</p>
               <div className="bg-blue-50 rounded-lg p-6">
-                <div className="text-2xl mb-4">📧</div>
+                <div className="text-2xl mb-4">
+                  <FaEnvelopeOpen className="text-blue-600 mx-auto" />
+                </div>
                 <a
                   href={`mailto:${t('contact.email')}`}
                   className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
@@ -281,32 +293,32 @@ export default function Home() {
             onClick={() => scrollToSection('home')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            <span className="text-xl mb-1">🏠</span>
+            <FaHome className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.home')}</span>
           </button>
           <button
             onClick={() => scrollToSection('services')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            <span className="text-xl mb-1">⚙️</span>
+            <FaCogs className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.services')}</span>
           </button>
           <button
             onClick={() => scrollToSection('about')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            <span className="text-xl mb-1">👨‍💼</span>
+            <FaUserTie className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.about')}</span>
           </button>
           <button
             onClick={() => scrollToSection('contact')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            <span className="text-xl mb-1">📧</span>
+            <FaEnvelope className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.contact')}</span>
           </button>
           <div className="flex flex-col items-center p-2">
-            <span className="text-xl mb-1">🌐</span>
+            <FaGlobe className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.language')}</span>
           </div>
         </div>
