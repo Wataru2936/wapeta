@@ -1,102 +1,323 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '../i18n';
+
+// 言語切り替えコンポーネント
+const LanguageSelector = () => {
+  const { i18n } = useTranslation();
+  
+  const languages = [
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+  ];
+  
+  return (
+    <div className="flex flex-wrap gap-2 justify-center">
+      {languages.map((lang) => (
+        <button
+          key={lang.code}
+          onClick={() => i18n.changeLanguage(lang.code)}
+          className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+            i18n.language === lang.code
+              ? 'bg-blue-600 text-white shadow-lg'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          <span className="mr-1">{lang.flag}</span>
+          {lang.name}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+// サービスカードコンポーネント
+const ServiceCard = ({ title, description }: { title: string; description: string }) => (
+  <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+    <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
+    <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+  </div>
+);
+
+// セクションコンポーネント
+const Section = ({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) => (
+  <section id={id} className="mb-12">
+    <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">{title}</h2>
+    {children}
+  </section>
+);
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { t, i18n } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // IPアドレスベースの言語判定
+  useEffect(() => {
+    const detectLocale = async () => {
+      try {
+        const response = await fetch('/api/detect-locale');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.detected && data.locale) {
+          await i18n.changeLanguage(data.locale);
+        }
+      } catch (error) {
+        console.error('Failed to detect locale:', error);
+        // エラーの場合はデフォルト言語（日本語）を使用
+        await i18n.changeLanguage('ja');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    detectLocale();
+  }, [i18n]);
+
+  // ナビゲーション関数
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* ヘッダー - デスクトップ版は固定 */}
+      <header className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div className="container mx-auto px-4 py-4">
+                      <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <h1 className="text-2xl font-bold text-blue-600">{t('company.name')}</h1>
+              </div>
+            <nav className="flex items-center space-x-6">
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('navigation.home')}
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('navigation.services')}
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('navigation.about')}
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('navigation.contact')}
+              </button>
+              <LanguageSelector />
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* メインコンテンツ */}
+      <main className="md:pt-20 pb-20 md:pb-8">
+        <div className="container mx-auto px-4 py-8">
+          {/* ヒーローセクション */}
+          <section id="home" className="text-center mb-16">
+            <div className="mb-8">
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="/Wapeta.png" 
+                  alt="Wapeta Logo" 
+                  className="h-24 md:h-32 w-auto"
+                />
+              </div>
+              <div className="text-xl md:text-2xl text-gray-700 mb-2">
+                {t('company.ceo')} ({t('company.ceoTitle')})
+              </div>
+              <div className="text-gray-600">
+                {t('company.location')} {t('company.locationNote')}
+              </div>
+            </div>
+            
+            {/* 重要なお知らせ */}
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-r-lg">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <span className="text-yellow-400 text-xl">⚠️</span>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-yellow-800">
+                    {t('notice.title')}
+                  </h3>
+                  <div className="mt-2 text-sm text-yellow-700">
+                    {t('notice.content')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* サービス内容 */}
+          <Section title={t('services.title')} id="services">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ServiceCard
+                title={t('services.website')}
+                description={t('services.website')}
+              />
+              <ServiceCard
+                title={t('services.events')}
+                description={t('services.events')}
+              />
+              <ServiceCard
+                title={t('services.procurement')}
+                description={t('services.procurement')}
+              />
+              <ServiceCard
+                title={t('services.osSupport')}
+                description={t('services.osSupport')}
+              />
+              <ServiceCard
+                title={t('services.deviceSelection')}
+                description={t('services.deviceSelection')}
+              />
+              <ServiceCard
+                title={t('services.consulting')}
+                description={t('services.consulting')}
+              />
+            </div>
+          </Section>
+
+          {/* 社長メッセージ */}
+          <Section title={t('ceoMessage.title')} id="about">
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+              <div className="text-center mb-6">
+                <div className="w-32 h-32 mx-auto mb-4 overflow-hidden rounded-full border-4 border-blue-100 shadow-lg">
+                  <img 
+                    src="/my.png" 
+                    alt="社長写真" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {t('company.ceo')} {t('company.ceoTitle')}
+                </h3>
+              </div>
+              <blockquote className="text-gray-700 text-lg leading-relaxed space-y-4">
+                <p className="italic">"{t('ceoMessage.message1')}"</p>
+                <p className="italic">"{t('ceoMessage.message2')}"</p>
+              </blockquote>
+            </div>
+          </Section>
+
+          {/* 価格・営業時間 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('pricing.title')}</h2>
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-blue-600">{t('pricing.base')}</p>
+                <p className="text-gray-600 text-sm">{t('pricing.note')}</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('businessHours.title')}</h2>
+              <div className="space-y-2">
+                <p className="text-gray-700">{t('businessHours.weekdays')}</p>
+                <p className="text-gray-700">{t('businessHours.weekends')}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* お問い合わせ */}
+          <Section title={t('contact.title')} id="contact">
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto text-center">
+              <p className="text-gray-700 mb-6">{t('contact.method')}</p>
+              <div className="bg-blue-50 rounded-lg p-6">
+                <div className="text-2xl mb-4">📧</div>
+                <a
+                  href={`mailto:${t('contact.email')}`}
+                  className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  {t('contact.email')}
+                </a>
+              </div>
+            </div>
+          </Section>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* モバイル用フッターナビゲーション */}
+      <footer className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
+        <div className="flex items-center justify-around py-2">
+          <button
+            onClick={() => scrollToSection('home')}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <span className="text-xl mb-1">🏠</span>
+            <span className="text-xs">{t('navigation.home')}</span>
+          </button>
+          <button
+            onClick={() => scrollToSection('services')}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <span className="text-xl mb-1">⚙️</span>
+            <span className="text-xs">{t('navigation.services')}</span>
+          </button>
+          <button
+            onClick={() => scrollToSection('about')}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <span className="text-xl mb-1">👨‍💼</span>
+            <span className="text-xs">{t('navigation.about')}</span>
+          </button>
+          <button
+            onClick={() => scrollToSection('contact')}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <span className="text-xl mb-1">📧</span>
+            <span className="text-xs">{t('navigation.contact')}</span>
+          </button>
+          <div className="flex flex-col items-center p-2">
+            <span className="text-xl mb-1">🌐</span>
+            <span className="text-xs">{t('navigation.language')}</span>
+          </div>
+        </div>
+        <div className="px-4 pb-2">
+          <LanguageSelector />
+        </div>
+        {/* モバイルフッターの会社ロゴ */}
+        <div className="border-t border-gray-100 px-4 py-3">
+          <div className="flex items-center justify-center">
+            <img 
+              src="/Wapeta.png" 
+              alt="Wapeta Logo" 
+              className="h-8 w-auto"
+            />
+          </div>
+        </div>
       </footer>
     </div>
   );

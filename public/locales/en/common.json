@@ -1,0 +1,49 @@
+{
+  "company": {
+    "name": "Wapeta",
+    "ceo": "Wataru Shiraishi",
+    "ceoTitle": "Elementary School Student CEO",
+    "location": "Fukuoka Prefecture",
+    "locationNote": "(Detailed address is confidential)"
+  },
+  "services": {
+    "title": "Our Services",
+    "website": "Website Development",
+    "events": "Special event websites for birthdays, weddings, and other celebrations",
+    "procurement": "PC & IT Equipment Procurement Service",
+    "osSupport": "Windows OS Installation and Update Support",
+    "deviceSelection": "IT Device (iPhone, Android, etc.) Selection & Procurement",
+    "consulting": "IT Consulting Services (Customized to customer needs)"
+  },
+  "ceoMessage": {
+    "title": "CEO Message",
+    "message1": "We provide optimal IT solutions tailored to each customer's individual needs.",
+    "message2": "If you are interested in high-quality, low-cost systems provided by an elementary school student CEO, please feel free to contact us."
+  },
+  "pricing": {
+    "title": "Pricing",
+    "base": "Base Price: From ¥60,000",
+    "note": "Prices are flexible and negotiable with customers (discounts possible, may also increase depending on requirements)"
+  },
+  "businessHours": {
+    "title": "Business Hours",
+    "weekdays": "Weekdays (Mon-Fri): 2:00 PM - 5:00 PM",
+    "weekends": "Weekends & Holidays: 10:00 AM - 5:00 PM"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "method": "Work requests and inquiries are accepted via email",
+    "email": "contact@wapeta.com"
+  },
+  "notice": {
+    "title": "Important Notice",
+    "content": "As this is operated by an elementary school student CEO, responses may be delayed on weekdays due to school commitments."
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Language"
+  }
+} 

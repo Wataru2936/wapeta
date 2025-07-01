@@ -1,0 +1,49 @@
+{
+  "company": {
+    "name": "Wapeta",
+    "ceo": "白石亘",
+    "ceoTitle": "小学生社長",
+    "location": "福岡県",
+    "locationNote": "福岡市"
+  },
+  "services": {
+    "title": "サービス内容",
+    "website": "ホームページ作成",
+    "events": "誕生日祝い、結婚祝いなど特別なイベント用のサイト作成",
+    "procurement": "パソコン・IT機器の購入代行サービス",
+    "osSupport": "Windows、OSのインストールやアップデート支援",
+    "deviceSelection": "ITデバイス（iPhone、Androidなど）の選定・購入代行",
+    "consulting": "ITコンサルティング業務（顧客のニーズに合わせて）"
+  },
+  "ceoMessage": {
+    "title": "社長メッセージ",
+    "message1": "お客様一人ひとりのニーズに寄り添い、最適なITソリューションを提供します。",
+    "message2": "小学生社長が提供する高品質で低価格なシステムにご興味のある方は、ぜひお問い合わせください。"
+  },
+  "pricing": {
+    "title": "価格設定",
+    "base": "基本価格：60,000円〜",
+    "note": "価格はお客様との交渉により柔軟に変動可能（割引交渉可、高くなる場合もある）"
+  },
+  "businessHours": {
+    "title": "営業時間",
+    "weekdays": "平日（月〜金）: 14:00〜17:00",
+    "weekends": "土日・休日: 10:00〜17:00"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "method": "お仕事の依頼やお問い合わせはメールで受付",
+    "email": "contact@wapeta.com"
+  },
+  "notice": {
+    "title": "重要なお知らせ",
+    "content": "小学生社長が運営しているため、平日は学校の都合で対応が遅れる可能性があります。"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "services": "サービス",
+    "about": "会社情報",
+    "contact": "お問い合わせ",
+    "language": "言語"
+  }
+} 

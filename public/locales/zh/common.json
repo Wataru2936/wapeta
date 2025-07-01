@@ -1,0 +1,49 @@
+{
+  "company": {
+    "name": "Wapeta",
+    "ceo": "白石亘",
+    "ceoTitle": "小学生社长",
+    "location": "福冈县",
+    "locationNote": "（地址详细不公开）"
+  },
+  "services": {
+    "title": "服务内容",
+    "website": "主页制作",
+    "events": "生日庆祝、结婚庆祝等特别活动网站制作",
+    "procurement": "电脑・IT设备采购代理服务",
+    "osSupport": "Windows、操作系统安装和更新支持",
+    "deviceSelection": "IT设备（iPhone、Android等）选择・采购代理",
+    "consulting": "IT咨询业务（根据客户需求定制）"
+  },
+  "ceoMessage": {
+    "title": "社长致辞",
+    "message1": "贴近每一位客户的需求，提供最优的IT解决方案。",
+    "message2": "如果您对小学生社长提供的高质量低价格系统感兴趣，请随时联系我们。"
+  },
+  "pricing": {
+    "title": "价格设定",
+    "base": "基本价格：60,000日元起",
+    "note": "价格可根据与客户的协商灵活调整（可议价，也有可能提高）"
+  },
+  "businessHours": {
+    "title": "营业时间",
+    "weekdays": "平日（周一～周五）：14:00～17:00",
+    "weekends": "周末・节假日：10:00～17:00"
+  },
+  "contact": {
+    "title": "联系我们",
+    "method": "工作委托和咨询通过邮件受理",
+    "email": "contact@wapeta.com"
+  },
+  "notice": {
+    "title": "重要提示",
+    "content": "由于是小学生社长运营，平日可能因学校安排导致回复延迟。"
+  },
+  "navigation": {
+    "home": "首页",
+    "services": "服务",
+    "about": "公司信息",
+    "contact": "联系我们",
+    "language": "语言"
+  }
+} 

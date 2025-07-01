@@ -1,0 +1,49 @@
+{
+  "company": {
+    "name": "Wapeta",
+    "ceo": "시라이시 와타루",
+    "ceoTitle": "초등학생 사장",
+    "location": "후쿠오카현",
+    "locationNote": "（주소 상세는 비공개）"
+  },
+  "services": {
+    "title": "서비스 내용",
+    "website": "홈페이지 제작",
+    "events": "생일 축하, 결혼 축하 등 특별한 이벤트용 사이트 제작",
+    "procurement": "PC・IT 기기 구매 대행 서비스",
+    "osSupport": "Windows, OS 설치 및 업데이트 지원",
+    "deviceSelection": "IT 디바이스 (iPhone, Android 등) 선정・구매 대행",
+    "consulting": "IT 컨설팅 업무 (고객의 니즈에 맞춤형)"
+  },
+  "ceoMessage": {
+    "title": "사장 메시지",
+    "message1": "고객 한 분 한 분의 니즈에 부응하며, 최적의 IT 솔루션을 제공합니다.",
+    "message2": "초등학생 사장이 제공하는 고품질이면서 저가격인 시스템에 관심이 있으시면, 언제든지 문의해 주세요."
+  },
+  "pricing": {
+    "title": "가격 설정",
+    "base": "기본 가격: 60,000엔～",
+    "note": "가격은 고객과의 협상에 따라 유연하게 변동 가능 (할인 협상 가능, 높아질 경우도 있음)"
+  },
+  "businessHours": {
+    "title": "영업시간",
+    "weekdays": "평일 (월～금): 14:00～17:00",
+    "weekends": "토일・휴일: 10:00～17:00"
+  },
+  "contact": {
+    "title": "문의",
+    "method": "업무 의뢰나 문의는 이메일로 접수",
+    "email": "contact@wapeta.com"
+  },
+  "notice": {
+    "title": "중요한 공지",
+    "content": "초등학생 사장이 운영하고 있어, 평일은 학교 사정으로 대응이 늦어질 가능성이 있습니다."
+  },
+  "navigation": {
+    "home": "홈",
+    "services": "서비스",
+    "about": "회사 정보",
+    "contact": "문의",
+    "language": "언어"
+  }
+} 
