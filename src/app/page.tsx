@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 import '../i18n';
 
 // 言語切り替えコンポーネント
@@ -148,9 +149,11 @@ export default function Home() {
           <section id="home" className="text-center mb-16">
             <div className="mb-8">
               <div className="flex justify-center mb-6">
-                <img 
+                <Image 
                   src="/Wapeta.png" 
                   alt="Wapeta Logo" 
+                  width={128}
+                  height={128}
                   className="h-24 md:h-32 w-auto"
                 />
               </div>
@@ -215,9 +218,11 @@ export default function Home() {
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
               <div className="text-center mb-6">
                 <div className="w-32 h-32 mx-auto mb-4 overflow-hidden rounded-full border-4 border-blue-100 shadow-lg">
-                  <img 
+                  <Image 
                     src="/my.png" 
                     alt="社長写真" 
+                    width={128}
+                    height={128}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -226,8 +231,8 @@ export default function Home() {
                 </h3>
               </div>
               <blockquote className="text-gray-700 text-lg leading-relaxed space-y-4">
-                <p className="italic">"{t('ceoMessage.message1')}"</p>
-                <p className="italic">"{t('ceoMessage.message2')}"</p>
+                <p className="italic">&ldquo;{t('ceoMessage.message1')}&rdquo;</p>
+                <p className="italic">&ldquo;{t('ceoMessage.message2')}&rdquo;</p>
               </blockquote>
             </div>
           </Section>
@@ -311,9 +316,11 @@ export default function Home() {
         {/* モバイルフッターの会社ロゴ */}
         <div className="border-t border-gray-100 px-4 py-3">
           <div className="flex items-center justify-center">
-            <img 
+            <Image 
               src="/Wapeta.png" 
               alt="Wapeta Logo" 
+              width={32}
+              height={32}
               className="h-8 w-auto"
             />
           </div>
