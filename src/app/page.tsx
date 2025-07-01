@@ -10,7 +10,6 @@ import {
   FaEnvelope, 
   FaGlobe, 
   FaExclamationTriangle,
-  FaUser,
   FaEnvelopeOpen
 } from 'react-icons/fa';
 import '../i18n';
