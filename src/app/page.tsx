@@ -10,7 +10,8 @@ import {
   FaEnvelope, 
   FaGlobe, 
   FaExclamationTriangle,
-  FaEnvelopeOpen
+  FaEnvelopeOpen,
+  FaTimes
 } from 'react-icons/fa';
 import '../i18n';
 
@@ -69,10 +70,57 @@ const LanguageSelector = () => {
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
-          <span className="mr-1">{lang.flag}</span>
-          {lang.name}
+          <span className="text-lg">{lang.flag}</span>
         </button>
       ))}
+    </div>
+  );
+};
+
+// モバイル用言語選択モーダル
+const MobileLanguageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { i18n } = useTranslation();
+  
+  const languages = [
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+  ];
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end">
+      <div className="bg-white w-full rounded-t-3xl p-6 transform transition-transform duration-300 ease-out">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-semibold text-gray-800">言語を選択</h3>
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-500 hover:text-gray-700"
+          >
+            <FaTimes className="text-xl" />
+          </button>
+        </div>
+        <div className="space-y-3">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => {
+                i18n.changeLanguage(lang.code);
+                onClose();
+              }}
+              className={`w-full flex items-center justify-center p-4 rounded-lg transition-all ${
+                i18n.language === lang.code
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span className="text-3xl">{lang.flag}</span>
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
@@ -96,6 +144,7 @@ const Section = ({ title, children, id }: { title: string; children: React.React
 export default function Home() {
   const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
   // IPアドレスベースの言語判定
   useEffect(() => {
@@ -155,34 +204,38 @@ export default function Home() {
       {/* ヘッダー - デスクトップ版は固定 */}
       <header className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-md z-50">
         <div className="container mx-auto px-4 py-4">
-                      <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <h1 className="text-2xl font-bold text-blue-600">{t('company.name')}</h1>
-              </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <h1 className="text-2xl font-bold text-blue-600">{t('company.name')}</h1>
+            </div>
             <nav className="flex items-center space-x-6">
               <button
                 onClick={() => scrollToSection('home')}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title={t('navigation.home')}
               >
-                {t('navigation.home')}
+                <FaHome className="text-xl" />
               </button>
               <button
                 onClick={() => scrollToSection('services')}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title={t('navigation.services')}
               >
-                {t('navigation.services')}
+                <FaCogs className="text-xl" />
               </button>
               <button
                 onClick={() => scrollToSection('about')}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title={t('navigation.about')}
               >
-                {t('navigation.about')}
+                <FaUserTie className="text-xl" />
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title={t('navigation.contact')}
               >
-                {t('navigation.contact')}
+                <FaEnvelope className="text-xl" />
               </button>
               <LanguageSelector />
             </nav>
@@ -200,13 +253,14 @@ export default function Home() {
                 <Image 
                   src="/Wapeta.png" 
                   alt="Wapeta Logo" 
-                  width={128}
-                  height={128}
-                  className="h-24 md:h-32 w-auto"
+                  width={200}
+                  height={200}
+                  className="h-32 md:h-48 w-auto"
                 />
               </div>
               <div className="text-xl md:text-2xl text-gray-700 mb-2">
-                {t('company.ceo')} ({t('company.ceoTitle')})
+                <div>{t('company.ceo')}</div>
+                <div>({t('company.ceoTitle')})</div>
               </div>
               <div className="text-gray-600">
                 {t('company.location')} {t('company.locationNote')}
@@ -216,14 +270,14 @@ export default function Home() {
             {/* 重要なお知らせ */}
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-r-lg">
               <div className="flex items-start">
-                <div className="flex-shrink-0 mt-0.5">
+                <div className="flex-shrink-0">
                   <FaExclamationTriangle className="text-yellow-500 text-xl" />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-yellow-800">
+                  <h3 className="text-sm font-bold text-yellow-800">
                     {t('notice.title')}
                   </h3>
-                  <div className="mt-2 text-sm text-yellow-700">
+                  <div className="mt-2 text-sm text-yellow-700 text-left">
                     {t('notice.content')}
                   </div>
                 </div>
@@ -275,7 +329,8 @@ export default function Home() {
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800">
-                  {t('company.ceo')} {t('company.ceoTitle')}
+                  <div>{t('company.ceo')}</div>
+                  <div>{t('company.ceoTitle')}</div>
                 </h3>
               </div>
               <blockquote className="text-gray-700 text-lg leading-relaxed space-y-4">
@@ -331,69 +386,46 @@ export default function Home() {
             onClick={() => scrollToSection('home')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            <FaHome className="text-xl mb-1" />
-            <span className="text-xs">{t('navigation.home')}</span>
+            <Image 
+              src="/Wapeta.png" 
+              alt="Wapeta Logo" 
+              width={32}
+              height={32}
+              className="h-8 w-auto mb-1"
+            />
           </button>
           <button
             onClick={() => scrollToSection('services')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
             <FaCogs className="text-xl mb-1" />
-            <span className="text-xs">{t('navigation.services')}</span>
           </button>
           <button
             onClick={() => scrollToSection('about')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
             <FaUserTie className="text-xl mb-1" />
-            <span className="text-xs">{t('navigation.about')}</span>
           </button>
           <button
             onClick={() => scrollToSection('contact')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
             <FaEnvelope className="text-xl mb-1" />
-            <span className="text-xs">{t('navigation.contact')}</span>
           </button>
-          <div className="flex flex-col items-center p-2">
+          <button
+            onClick={() => setIsLanguageModalOpen(true)}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
             <FaGlobe className="text-xl mb-1" />
-            <span className="text-xs">{t('navigation.language')}</span>
-            {/* コンパクトな言語セレクター */}
-            <div className="flex gap-1 mt-1">
-              {[
-                { code: 'ja', flag: '🇯🇵' },
-                { code: 'ko', flag: '🇰🇷' },
-                { code: 'zh', flag: '🇨🇳' },
-                { code: 'en', flag: '🇺🇸' }
-              ].map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => i18n.changeLanguage(lang.code)}
-                  className={`w-6 h-6 rounded text-xs flex items-center justify-center transition-all ${
-                    i18n.language === lang.code
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {lang.flag}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* モバイルフッターの会社ロゴ */}
-        <div className="border-t border-gray-100 px-4 py-3">
-          <div className="flex items-center justify-center">
-            <Image 
-              src="/Wapeta.png" 
-              alt="Wapeta Logo" 
-              width={32}
-              height={32}
-              className="h-8 w-auto"
-            />
-          </div>
+          </button>
         </div>
       </footer>
+
+      {/* モバイル用言語選択モーダル */}
+      <MobileLanguageModal 
+        isOpen={isLanguageModalOpen} 
+        onClose={() => setIsLanguageModalOpen(false)} 
+      />
     </div>
   );
 }
