@@ -8,12 +8,12 @@
   },
   "services": {
     "title": "Our Services",
-    "website": "Website Development",
-    "events": "Special event websites for birthdays, weddings, and other celebrations",
-    "procurement": "PC & IT Equipment Procurement Service",
-    "osSupport": "Windows OS Installation and Update Support",
-    "deviceSelection": "IT Device (iPhone, Android, etc.) Selection & Procurement",
-    "consulting": "IT Consulting Services (Customized to customer needs)"
+    "website": "We create stylish, mobile-friendly websites tailored for individuals and businesses. Custom design options are available based on your needs.",
+    "events": "We create special celebration websites for birthdays, weddings, and more—featuring photos and heartfelt messages to make memories last.",
+    "procurement": "We assist you in selecting and purchasing the right PCs and IT devices. Perfect for beginners seeking reliable guidance.",
+    "osSupport": "We provide reliable support for installing and updating Windows or other operating systems, including restoring older PCs.",
+    "deviceSelection": "We help you choose and purchase IT devices like iPhones and Androids, offering clear guidance even for beginners.",
+    "consulting": "We offer IT consulting tailored to your needs—helping individuals and businesses optimize their digital environments."
   },
   "ceoMessage": {
     "title": "CEO Message",
@@ -22,7 +22,7 @@
   },
   "pricing": {
     "title": "Pricing",
-    "base": "Base Price: From ¥60,000",
+    "base": "Base Price: From $500",
     "note": "Prices are flexible and negotiable with customers (discounts possible, may also increase depending on requirements)"
   },
   "businessHours": {

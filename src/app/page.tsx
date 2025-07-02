@@ -268,17 +268,16 @@ export default function Home() {
             </div>
             
             {/* 重要なお知らせ */}
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-r-lg">
-              <div className="flex items-start">
-                <div className="flex-shrink-0">
-                  <FaExclamationTriangle className="text-yellow-500 text-xl" />
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-sm font-bold text-yellow-800">
-                    {t('notice.title')}
-                  </h3>
-                  <div className="mt-2 text-sm text-yellow-700 text-left">
-                    {t('notice.content')}
+            <div className="flex justify-center mb-8">
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg max-w-2xl w-full">
+                <div className="flex items-start">
+                  <div className="ml-3">
+                    <h3 className="text-sm font-bold text-yellow-800">
+                      {t('notice.title')}
+                    </h3>
+                    <div className="mt-2 text-sm text-yellow-700 text-left">
+                      {t('notice.content')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -289,27 +288,27 @@ export default function Home() {
           <Section title={t('services.title')} id="services">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard
-                title={t('services.website')}
+                title="🌐 ホームページ作成"
                 description={t('services.website')}
               />
               <ServiceCard
-                title={t('services.events')}
+                title="🎉 特別なイベント用サイト作成"
                 description={t('services.events')}
               />
               <ServiceCard
-                title={t('services.procurement')}
+                title="💻 パソコン・IT機器の購入代行"
                 description={t('services.procurement')}
               />
               <ServiceCard
-                title={t('services.osSupport')}
+                title="🛠 Windows・OSのインストール／アップデート支援"
                 description={t('services.osSupport')}
               />
               <ServiceCard
-                title={t('services.deviceSelection')}
+                title="📱 ITデバイスの選定・購入代行"
                 description={t('services.deviceSelection')}
               />
               <ServiceCard
-                title={t('services.consulting')}
+                title="🧠 ITコンサルティング業務"
                 description={t('services.consulting')}
               />
             </div>
@@ -389,9 +388,9 @@ export default function Home() {
             <Image 
               src="/Wapeta.png" 
               alt="Wapeta Logo" 
-              width={32}
-              height={32}
-              className="h-8 w-auto mb-1"
+              width={40}
+              height={40}
+              className="h-10 w-auto mb-1"
             />
           </button>
           <button

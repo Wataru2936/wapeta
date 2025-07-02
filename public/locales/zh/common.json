@@ -8,12 +8,12 @@
   },
   "services": {
     "title": "服务内容",
-    "website": "主页制作",
-    "events": "生日庆祝、结婚庆祝等特别活动网站制作",
-    "procurement": "电脑・IT设备采购代理服务",
-    "osSupport": "Windows、操作系统安装和更新支持",
-    "deviceSelection": "IT设备（iPhone、Android等）选择・采购代理",
-    "consulting": "IT咨询业务（根据客户需求定制）"
+    "website": "为个人和企业打造时尚、适配手机的网页，并可根据您的需求进行个性化定制。",
+    "events": "为生日、婚礼等特别场合制作纪念网站，精美呈现照片和祝福语，传达心意与感动。",
+    "procurement": "为您代购电脑和相关设备，从选择到购买一站式服务，适合初学者。",
+    "osSupport": "我们提供操作系统（如Windows）的安装与更新支持，也可恢复旧电脑。",
+    "deviceSelection": "为您代选并代购如iPhone或Android等设备，并提供适合初学者的详细指导。",
+    "consulting": "根据客户需求提供IT咨询服务，协助个人和企业构建最适合的数字化环境。"
   },
   "ceoMessage": {
     "title": "社长致辞",
@@ -22,7 +22,7 @@
   },
   "pricing": {
     "title": "价格设定",
-    "base": "基本价格：60,000日元起",
+    "base": "基本价格：$500起",
     "note": "价格可根据与客户的协商灵活调整（可议价，也有可能提高）"
   },
   "businessHours": {
