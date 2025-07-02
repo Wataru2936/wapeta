@@ -14,6 +14,38 @@ import {
 } from 'react-icons/fa';
 import '../i18n';
 
+// 構造化データ（JSON-LD）
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Wapeta",
+  "description": "小学生社長が運営するITソリューション会社",
+  "url": "https://wapeta.com",
+  "logo": "https://wapeta.com/Wapeta.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "contact@wapeta.com"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "福岡県"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "白石亘",
+    "jobTitle": "小学生社長"
+  },
+  "serviceType": [
+    "ホームページ作成",
+    "IT機器購入代行",
+    "OSサポート",
+    "ITコンサルティング"
+  ],
+  "areaServed": "福岡県",
+  "priceRange": "¥¥"
+};
+
 // 言語切り替えコンポーネント
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -113,6 +145,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* 構造化データ（JSON-LD） */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       {/* ヘッダー - デスクトップ版は固定 */}
       <header className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-md z-50">
         <div className="container mx-auto px-4 py-4">

@@ -13,12 +13,58 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wapeta",
-  description: "Wapeta - 革新的なソリューションを提供する会社",
+  title: "Wapeta - ITソリューション・ホームページ作成・小学生社長",
+  description: "Wapetaは小学生社長が運営するITソリューション会社です。ホームページ作成、IT機器購入代行、OSサポート、ITコンサルティングを提供。福岡県で高品質・低価格なサービスをお届けします。",
+  keywords: "Wapeta, ITソリューション, ホームページ作成, 小学生社長, IT機器購入代行, OSサポート, ITコンサルティング, 福岡県",
+  authors: [{ name: "Wapeta" }],
+  creator: "Wapeta",
+  publisher: "Wapeta",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://wapeta.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Wapeta - ITソリューション・ホームページ作成・小学生社長",
+    description: "Wapetaは小学生社長が運営するITソリューション会社です。ホームページ作成、IT機器購入代行、OSサポート、ITコンサルティングを提供。",
+    url: 'https://wapeta.com',
+    siteName: 'Wapeta',
+    images: [
+      {
+        url: '/Wapeta.png',
+        width: 1200,
+        height: 630,
+        alt: 'Wapeta Logo',
+      },
+    ],
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Wapeta - ITソリューション・ホームページ作成・小学生社長",
+    description: "Wapetaは小学生社長が運営するITソリューション会社です。",
+    images: ['/Wapeta.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       {
-        url: "/public/favicon.ico",
+        url: "/favicon.ico",
         sizes: "any",
       },
     ],
@@ -34,7 +80,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
+      <head>
+        <link rel="canonical" href="https://wapeta.com" />
+        <meta name="google-site-verification" content="your-verification-code" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
