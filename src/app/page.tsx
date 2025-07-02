@@ -9,7 +9,6 @@ import {
   FaUserTie, 
   FaEnvelope, 
   FaGlobe, 
-  FaExclamationTriangle,
   FaEnvelopeOpen,
   FaTimes
 } from 'react-icons/fa';
