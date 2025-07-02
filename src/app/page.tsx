@@ -358,10 +358,28 @@ export default function Home() {
           <div className="flex flex-col items-center p-2">
             <FaGlobe className="text-xl mb-1" />
             <span className="text-xs">{t('navigation.language')}</span>
+            {/* コンパクトな言語セレクター */}
+            <div className="flex gap-1 mt-1">
+              {[
+                { code: 'ja', flag: '🇯🇵' },
+                { code: 'ko', flag: '🇰🇷' },
+                { code: 'zh', flag: '🇨🇳' },
+                { code: 'en', flag: '🇺🇸' }
+              ].map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => i18n.changeLanguage(lang.code)}
+                  className={`w-6 h-6 rounded text-xs flex items-center justify-center transition-all ${
+                    i18n.language === lang.code
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {lang.flag}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="px-4 pb-2">
-          <LanguageSelector />
         </div>
         {/* モバイルフッターの会社ロゴ */}
         <div className="border-t border-gray-100 px-4 py-3">
