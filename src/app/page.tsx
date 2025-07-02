@@ -69,7 +69,8 @@ const LanguageSelector = () => {
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
-          <span className="text-lg">{lang.flag}</span>
+          <span className="text-lg mr-2">{lang.flag}</span>
+          <span className="text-sm">{lang.name}</span>
         </button>
       ))}
     </div>
@@ -109,13 +110,14 @@ const MobileLanguageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 i18n.changeLanguage(lang.code);
                 onClose();
               }}
-              className={`w-full flex items-center justify-center p-4 rounded-lg transition-all ${
+              className={`w-full flex items-center p-4 rounded-lg transition-all ${
                 i18n.language === lang.code
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              <span className="text-3xl">{lang.flag}</span>
+              <span className="text-2xl mr-4">{lang.flag}</span>
+              <span className="text-lg font-medium">{lang.name}</span>
             </button>
           ))}
         </div>
@@ -142,33 +144,28 @@ const Section = ({ title, children, id }: { title: string; children: React.React
 
 export default function Home() {
   const { t, i18n } = useTranslation();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
-  // IPアドレスベースの言語判定
+  // IPアドレスベースの言語判定（バックグラウンドで実行）
   useEffect(() => {
     const detectLocale = async () => {
       try {
         const response = await fetch('/api/detect-locale');
         
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.detected && data.locale) {
-          await i18n.changeLanguage(data.locale);
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.detected && data.locale && data.locale !== i18n.language) {
+            await i18n.changeLanguage(data.locale);
+          }
         }
       } catch (error) {
         console.error('Failed to detect locale:', error);
-        // エラーの場合はデフォルト言語（日本語）を使用
-        await i18n.changeLanguage('ja');
-      } finally {
-        setIsLoading(false);
       }
     };
 
+    // バックグラウンドで言語判定を実行
     detectLocale();
   }, [i18n]);
 
