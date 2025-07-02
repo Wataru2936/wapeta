@@ -134,7 +134,7 @@ vercel
 
 ご質問やお仕事のご依頼は、以下のメールアドレスまでお気軽にお問い合わせください。
 
-📧 **contact@wapeta.com**
+📧 **info@wapeta.us**
 
 ---
 
