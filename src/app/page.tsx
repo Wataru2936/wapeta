@@ -25,7 +25,7 @@ const structuredData = {
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "customer service",
-    "email": "contact@wapeta.com"
+    "email": "info@wapeta.us"
   },
   "address": {
     "@type": "PostalAddress",
