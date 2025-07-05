@@ -84,6 +84,18 @@ export default function RootLayout({
       <head>
         <link rel="canonical" href="https://wapeta.com" />
         <meta name="google-site-verification" content="your-verification-code" />
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-57KBBJZTR6"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-57KBBJZTR6');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
