@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,14 +25,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://wapeta.com'),
+  metadataBase: new URL('https://wapeta.us'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: "Wapeta - ITソリューション・ホームページ作成・小学生社長",
     description: "Wapetaは小学生社長が運営するITソリューション会社です。ホームページ作成、IT機器購入代行、OSサポート、ITコンサルティングを提供。",
-    url: 'https://wapeta.com',
+    url: 'https://wapeta.us',
     siteName: 'Wapeta',
     images: [
       {
@@ -82,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <link rel="canonical" href="https://wapeta.com" />
+        <link rel="canonical" href="https://wapeta.us" />
         <meta name="google-site-verification" content="your-verification-code" />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-57KBBJZTR6"></script>
@@ -101,6 +102,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
