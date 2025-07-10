@@ -10,7 +10,8 @@ import {
   FaEnvelope, 
   FaGlobe, 
   FaEnvelopeOpen,
-  FaTimes
+  FaTimes,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
 import '../i18n';
 
@@ -134,6 +135,43 @@ const ServiceCard = ({ title, description }: { title: string; description: strin
   </div>
 );
 
+// 実績カードコンポーネント
+const WorkCard = ({ title, description, url }: { title: string; description: string; url: string }) => (
+  <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+    <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
+    <p className="text-gray-600 text-sm leading-relaxed mb-4">{description}</p>
+    
+    {/* OGP埋め込み */}
+    <div className="mb-4">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+      >
+        <div className="p-3">
+          <div className="flex items-center space-x-2 mb-2">
+            <div className="w-4 h-4 bg-blue-500 rounded"></div>
+            <span className="text-xs text-gray-500 truncate">{url}</span>
+          </div>
+          <h4 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2">{title}</h4>
+          <p className="text-xs text-gray-600 line-clamp-2">{description}</p>
+        </div>
+      </a>
+    </div>
+    
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
+    >
+      <span>詳細を見る</span>
+      <FaExternalLinkAlt className="ml-1 text-xs" />
+    </a>
+  </div>
+);
+
 // セクションコンポーネント
 const Section = ({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) => (
   <section id={id} className="mb-12">
@@ -145,9 +183,20 @@ const Section = ({ title, children, id }: { title: string; children: React.React
 export default function Home() {
   const { t, i18n } = useTranslation();
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const [showCopyToast, setShowCopyToast] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  // クライアントサイドでのみ実行される処理
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // IPアドレスベースの言語判定（バックグラウンドで実行）
   useEffect(() => {
+    if (!isClient) return;
+
     const detectLocale = async () => {
       try {
         const response = await fetch('/api/detect-locale');
@@ -166,13 +215,59 @@ export default function Home() {
 
     // バックグラウンドで言語判定を実行
     detectLocale();
-  }, [i18n]);
+  }, [i18n, isClient]);
 
   // ナビゲーション関数
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // メールアドレスコピー関数
+  const copyEmail = async () => {
+    if (!isClient) return;
+    
+    try {
+      await navigator.clipboard.writeText(t('contact.email'));
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+    }
+  };
+
+  // フォーム送信関数
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isClient) return;
+    
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      // Googleフォームの送信先URL
+      const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfP6H-ZNjNOa4_D-rCPV0s5QtZKw8osfsllYEDNvWfwGPreBA/formResponse', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+
+      setSubmitSuccess(true);
+      
+      // フォームリセット（安全に実行）
+      const form = e.currentTarget;
+      if (form) {
+        form.reset();
+      }
+      
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -215,6 +310,13 @@ export default function Home() {
                 title={t('navigation.about')}
               >
                 <FaUserTie className="text-xl" />
+              </button>
+              <button
+                onClick={() => scrollToSection('works')}
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title={t('navigation.works')}
+              >
+                <FaCogs className="text-xl" />
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
@@ -325,6 +427,27 @@ export default function Home() {
             </div>
           </Section>
 
+          {/* 制作実績 */}
+          <Section title={t('works.title')} id="works">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <WorkCard
+                title={t('works.sourire.title')}
+                description={t('works.sourire.description')}
+                url="https://www.sourire.win/"
+              />
+              <WorkCard
+                title={t('works.maeda.title')}
+                description={t('works.maeda.description')}
+                url="https://wataru2936.github.io/Maeda/"
+              />
+              <WorkCard
+                title={t('works.hachi.title')}
+                description={t('works.hachi.description')}
+                url="https://wataru2936.github.io/Hachi/"
+              />
+            </div>
+          </Section>
+
           {/* 価格・営業時間 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-white rounded-lg shadow-lg p-6">
@@ -346,18 +469,124 @@ export default function Home() {
 
           {/* お問い合わせ */}
           <Section title={t('contact.title')} id="contact">
-            <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto text-center">
-              <p className="text-gray-700 mb-6">{t('contact.method')}</p>
-              <div className="bg-blue-50 rounded-lg p-6">
-                <div className="text-2xl mb-4">
-                  <FaEnvelopeOpen className="text-blue-600 mx-auto" />
+            <div className="max-w-4xl mx-auto space-y-8">
+              {/* メール連絡 */}
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+                <p className="text-gray-700 mb-6">{t('contact.method')}</p>
+                <div className="bg-blue-50 rounded-lg p-6">
+                  <div className="text-2xl mb-4">
+                    <FaEnvelopeOpen className="text-blue-600 mx-auto" />
+                  </div>
+                  <div className="flex items-center justify-center space-x-3">
+                    <a
+                      href={`mailto:${t('contact.email')}`}
+                      className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      {t('contact.email')}
+                    </a>
+                    {isClient && (
+                      <button
+                        onClick={copyEmail}
+                        className="flex items-center space-x-1 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                      >
+                        <span>📋</span>
+                        <span>コピー</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <a
-                  href={`mailto:${t('contact.email')}`}
-                  className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  {t('contact.email')}
-                </a>
+              </div>
+
+              {/* お問い合わせフォーム */}
+              <div className="bg-white rounded-lg shadow-lg p-8">
+                <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                  {t('contact.form.title')}
+                </h3>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('contact.form.name')} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="entry.2077414200"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('contact.form.email')} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="entry.720374840"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('contact.form.subject')} <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="subject"
+                      name="entry.1057881299"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                    >
+                      <option value="">選択してください</option>
+                      <option value={t('contact.form.subjectOptions.website')}>
+                        {t('contact.form.subjectOptions.website')}
+                      </option>
+                      <option value={t('contact.form.subjectOptions.procurement')}>
+                        {t('contact.form.subjectOptions.procurement')}
+                      </option>
+                      <option value={t('contact.form.subjectOptions.support')}>
+                        {t('contact.form.subjectOptions.support')}
+                      </option>
+                      <option value={t('contact.form.subjectOptions.consulting')}>
+                        {t('contact.form.subjectOptions.consulting')}
+                      </option>
+                      <option value={t('contact.form.subjectOptions.other')}>
+                        {t('contact.form.subjectOptions.other')}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('contact.form.message')} <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="entry.1812658899"
+                      required
+                      rows={5}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-900"
+                    ></textarea>
+                  </div>
+
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+                    >
+                      {isSubmitting ? '送信中...' : t('contact.form.submit')}
+                    </button>
+                  </div>
+                </form>
+
+                {submitSuccess && (
+                  <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                    <p className="text-green-800 font-medium">お問い合わせを送信しました。ありがとうございます。</p>
+                  </div>
+                )}
               </div>
             </div>
           </Section>
@@ -392,6 +621,12 @@ export default function Home() {
             <FaUserTie className="text-xl mb-1" />
           </button>
           <button
+            onClick={() => scrollToSection('works')}
+            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <FaCogs className="text-xl mb-1" />
+          </button>
+          <button
             onClick={() => scrollToSection('contact')}
             className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
           >
@@ -405,6 +640,13 @@ export default function Home() {
           </button>
         </div>
       </footer>
+
+      {/* コピー成功トースト */}
+      {isClient && showCopyToast && (
+        <div className="fixed bottom-20 md:bottom-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+          コピーしました
+        </div>
+      )}
 
       {/* モバイル用言語選択モーダル */}
       <MobileLanguageModal 

@@ -22,7 +22,7 @@
   },
   "pricing": {
     "title": "価格設定",
-    "base": "基本価格：　500$〜",
+    "base": "基本価格：　6万円（税別）~",
     "note": "価格はお客様との交渉により柔軟に変動可能（割引交渉可、高くなる場合もある）"
   },
   "businessHours": {
@@ -33,7 +33,23 @@
   "contact": {
     "title": "お問い合わせ",
     "method": "お仕事の依頼やお問い合わせはメールで受付",
-    "email": "info@wapeta.us"
+    "email": "info@wapeta.us",
+    "form": {
+      "title": "お問い合わせフォーム",
+      "name": "お名前",
+      "email": "メールアドレス",
+      "subject": "ご用件",
+      "subjectOptions": {
+        "website": "ホームページ作成",
+        "procurement": "IT機器購入代行",
+        "support": "OSサポート",
+        "consulting": "ITコンサルティング",
+        "other": "その他"
+      },
+      "message": "詳細内容",
+      "submit": "送信する",
+      "required": "必須項目"
+    }
   },
   "notice": {
     "title": "重要なお知らせ",
@@ -43,7 +59,23 @@
     "home": "ホーム",
     "services": "サービス",
     "about": "会社情報",
+    "works": "制作実績",
     "contact": "お問い合わせ",
     "language": "言語"
+  },
+  "works": {
+    "title": "制作実績",
+    "sourire": {
+      "title": "レストランスーリール",
+      "description": "ミシュラン１つ星の素敵なレストランに多国籍のお客様に魅力が伝わるよう多言語対応にこだわりました。"
+    },
+    "maeda": {
+      "title": "前田さん飲み会アプリ",
+      "description": "飲み会でルーレットで次の注文を決めるエンタメとなるよう意識しました。"
+    },
+    "hachi": {
+      "title": "はち歯科医院ガチャアプリ",
+      "description": "はち歯科医院にまた訪れたくなるような仕掛けを散りばめました。"
+    }
   }
 } 

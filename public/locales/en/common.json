@@ -4,7 +4,7 @@
     "ceo": "Wataru Shiraishi",
     "ceoTitle": "Elementary School Student CEO",
     "location": "Fukuoka Prefecture",
-    "locationNote": "(Detailed address is confidential)"
+    "locationNote": "(Fukuoka city)"
   },
   "services": {
     "title": "Our Services",
@@ -22,7 +22,7 @@
   },
   "pricing": {
     "title": "Pricing",
-    "base": "Base Price: From $500",
+    "base": "Base Price: ¥50,000 (excluding tax)",
     "note": "Prices are flexible and negotiable with customers (discounts possible, may also increase depending on requirements)"
   },
   "businessHours": {
@@ -33,7 +33,23 @@
   "contact": {
     "title": "Contact Us",
     "method": "Work requests and inquiries are accepted via email",
-    "email": "info@wapeta.us"
+    "email": "info@wapeta.us",
+    "form": {
+      "title": "Contact Form",
+      "name": "Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "subjectOptions": {
+        "website": "Website Creation",
+        "procurement": "IT Equipment Procurement",
+        "support": "OS Support",
+        "consulting": "IT Consulting",
+        "other": "Other"
+      },
+      "message": "Details",
+      "submit": "Send",
+      "required": "Required"
+    }
   },
   "notice": {
     "title": "Important Notice",
@@ -43,7 +59,23 @@
     "home": "Home",
     "services": "Services",
     "about": "About",
+    "works": "Works",
     "contact": "Contact",
     "language": "Language"
+  },
+  "works": {
+    "title": "Works",
+    "sourire": {
+      "title": "Restaurant Sourire",
+      "description": "We focused on multilingual support to convey the charm of this Michelin one-star restaurant to international customers."
+    },
+    "maeda": {
+      "title": "Maeda-san Drinking App",
+      "description": "We created entertainment for drinking parties where the next order is decided by roulette."
+    },
+    "hachi": {
+      "title": "Hachi Dental Clinic Gacha App",
+      "description": "We scattered mechanisms to make people want to visit Hachi Dental Clinic again."
+    }
   }
 } 
