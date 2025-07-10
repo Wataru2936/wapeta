@@ -18,7 +18,6 @@ import {
   FaTools,
   FaMobile,
   FaLightbulb,
-  FaClipboard,
   FaCopy
 } from 'react-icons/fa';
 import '../i18n';
