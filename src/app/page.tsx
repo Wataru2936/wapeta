@@ -11,7 +11,15 @@ import {
   FaGlobe, 
   FaEnvelopeOpen,
   FaTimes,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
+  FaGlobeAmericas,
+  FaGift,
+  FaLaptop,
+  FaTools,
+  FaMobile,
+  FaLightbulb,
+  FaClipboard,
+  FaCopy
 } from 'react-icons/fa';
 import '../i18n';
 
@@ -128,49 +136,149 @@ const MobileLanguageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 };
 
 // サービスカードコンポーネント
-const ServiceCard = ({ title, description }: { title: string; description: string }) => (
+const ServiceCard = ({ title, description }: { title: React.ReactNode; description: string }) => (
   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
     <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
     <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
   </div>
 );
 
+// OGP情報の型定義
+interface OGPData {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+}
+
+// OGP情報を取得するカスタムフック
+const useOGPData = (url: string) => {
+  const [ogpData, setOgpData] = useState<OGPData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOGP = async () => {
+      try {
+        // より安全なプロキシサーバーを使用
+        const response = await fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}&meta=true`);
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.data) {
+          const { title, description, image } = data.data;
+          
+          setOgpData({
+            title: title || '',
+            description: description || '',
+            image: image?.url || '',
+            url
+          });
+        } else {
+          // フォールバック: 別のプロキシサーバーを試す
+          try {
+            const fallbackResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+            const fallbackData = await fallbackResponse.json();
+            
+            if (fallbackData.contents) {
+              const html = fallbackData.contents;
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, 'text/html');
+              
+              const title = doc.querySelector('meta[property="og:title"]')?.getAttribute('content') ||
+                           doc.querySelector('title')?.textContent || '';
+              const description = doc.querySelector('meta[property="og:description"]')?.getAttribute('content') ||
+                                 doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+              const image = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+              
+              setOgpData({
+                title,
+                description,
+                image,
+                url
+              });
+            }
+          } catch (fallbackError) {
+            console.error('Fallback OGP fetch failed:', fallbackError);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch OGP data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (url && typeof window !== 'undefined') {
+      fetchOGP();
+    }
+  }, [url]);
+
+  return { ogpData, loading };
+};
+
 // 実績カードコンポーネント
-const WorkCard = ({ title, description, url }: { title: string; description: string; url: string }) => (
-  <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-    <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
-    <p className="text-gray-600 text-sm leading-relaxed mb-4">{description}</p>
-    
-    {/* OGP埋め込み */}
-    <div className="mb-4">
+const WorkCard = ({ title, description, url }: { title: string; description: string; url: string }) => {
+  const { ogpData, loading } = useOGPData(url);
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
+      <p className="text-gray-600 text-sm leading-relaxed mb-4">{description}</p>
+      
+      {/* OGP埋め込み */}
+      <div className="mb-4">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+        >
+          {loading ? (
+            <div className="w-full h-32 bg-gray-100 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          ) : ogpData?.image ? (
+            <div className="w-full h-32 bg-gray-100 overflow-hidden">
+              <Image
+                src={ogpData.image.startsWith('http') ? ogpData.image : `${new URL(url).origin}${ogpData.image}`}
+                alt={ogpData.title || title}
+                width={400}
+                height={200}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // 画像読み込みエラー時の処理
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+            </div>
+          ) : null}
+          <div className="p-3">
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="w-4 h-4 bg-blue-500 rounded"></div>
+              <span className="text-xs text-gray-500 truncate">{url}</span>
+            </div>
+            <h4 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2">
+              {ogpData?.title || title}
+            </h4>
+            <p className="text-xs text-gray-600 line-clamp-2">
+              {ogpData?.description || description}
+            </p>
+          </div>
+        </a>
+      </div>
+      
       <a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+        className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
       >
-        <div className="p-3">
-          <div className="flex items-center space-x-2 mb-2">
-            <div className="w-4 h-4 bg-blue-500 rounded"></div>
-            <span className="text-xs text-gray-500 truncate">{url}</span>
-          </div>
-          <h4 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2">{title}</h4>
-          <p className="text-xs text-gray-600 line-clamp-2">{description}</p>
-        </div>
+        <span>詳細を見る</span>
+        <FaExternalLinkAlt className="ml-1 text-xs" />
       </a>
     </div>
-    
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
-    >
-      <span>詳細を見る</span>
-      <FaExternalLinkAlt className="ml-1 text-xs" />
-    </a>
-  </div>
-);
+  );
+};
 
 // セクションコンポーネント
 const Section = ({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) => (
@@ -341,9 +449,9 @@ export default function Home() {
                 <Image 
                   src="/Wapeta.png" 
                   alt="Wapeta Logo" 
-                  width={200}
-                  height={200}
-                  className="h-32 md:h-48 w-auto"
+                  width={500}
+                  height={500}
+                  className="h-40 md:h-64 w-auto"
                 />
               </div>
               <div className="text-xl md:text-2xl text-gray-700 mb-2">
@@ -376,27 +484,57 @@ export default function Home() {
           <Section title={t('services.title')} id="services">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ServiceCard
-                title="🌐 ホームページ作成"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaGlobeAmericas className="text-blue-600 text-xl" />
+                    <span>ホームページ作成</span>
+                  </div>
+                }
                 description={t('services.website')}
               />
               <ServiceCard
-                title="🎉 特別なイベント用サイト作成"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaGift className="text-pink-600 text-xl" />
+                    <span>特別なイベント用サイト作成</span>
+                  </div>
+                }
                 description={t('services.events')}
               />
               <ServiceCard
-                title="💻 パソコン・IT機器の購入代行"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaLaptop className="text-green-600 text-xl" />
+                    <span>パソコン・IT機器の購入代行</span>
+                  </div>
+                }
                 description={t('services.procurement')}
               />
               <ServiceCard
-                title="🛠 Windows・OSのインストール／アップデート支援"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaTools className="text-orange-600 text-xl" />
+                    <span>Windows・OSのインストール／アップデート支援</span>
+                  </div>
+                }
                 description={t('services.osSupport')}
               />
               <ServiceCard
-                title="📱 ITデバイスの選定・購入代行"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaMobile className="text-purple-600 text-xl" />
+                    <span>ITデバイスの選定・購入代行</span>
+                  </div>
+                }
                 description={t('services.deviceSelection')}
               />
               <ServiceCard
-                title="🧠 ITコンサルティング業務"
+                title={
+                  <div className="flex items-center space-x-2">
+                    <FaLightbulb className="text-yellow-600 text-xl" />
+                    <span>ITコンサルティング業務</span>
+                  </div>
+                }
                 description={t('services.consulting')}
               />
             </div>
@@ -470,33 +608,6 @@ export default function Home() {
           {/* お問い合わせ */}
           <Section title={t('contact.title')} id="contact">
             <div className="max-w-4xl mx-auto space-y-8">
-              {/* メール連絡 */}
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <p className="text-gray-700 mb-6">{t('contact.method')}</p>
-                <div className="bg-blue-50 rounded-lg p-6">
-                  <div className="text-2xl mb-4">
-                    <FaEnvelopeOpen className="text-blue-600 mx-auto" />
-                  </div>
-                  <div className="flex items-center justify-center space-x-3">
-                    <a
-                      href={`mailto:${t('contact.email')}`}
-                      className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
-                    >
-                      {t('contact.email')}
-                    </a>
-                    {isClient && (
-                      <button
-                        onClick={copyEmail}
-                        className="flex items-center space-x-1 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                      >
-                        <span>📋</span>
-                        <span>コピー</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-
               {/* お問い合わせフォーム */}
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
@@ -587,6 +698,33 @@ export default function Home() {
                     <p className="text-green-800 font-medium">お問い合わせを送信しました。ありがとうございます。</p>
                   </div>
                 )}
+              </div>
+
+              {/* メール連絡 */}
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+                <p className="text-gray-700 mb-6">{t('contact.method')}</p>
+                <div className="bg-blue-50 rounded-lg p-6">
+                  <div className="text-2xl mb-4">
+                    <FaEnvelopeOpen className="text-blue-600 mx-auto" />
+                  </div>
+                  <div className="flex items-center justify-center space-x-3">
+                    <a
+                      href={`mailto:${t('contact.email')}`}
+                      className="text-2xl font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      {t('contact.email')}
+                    </a>
+                    {isClient && (
+                      <button
+                        onClick={copyEmail}
+                        className="flex items-center space-x-1 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                      >
+                        <FaCopy className="text-sm" />
+                        <span className="hidden md:inline">コピー</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </Section>

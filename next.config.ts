@@ -12,6 +12,29 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // 外部画像ホストを許可
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.sourire.win',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'wataru2936.github.io',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
