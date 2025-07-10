@@ -249,7 +249,7 @@ export default function Home() {
     
     try {
       // Googleフォームの送信先URL
-      const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfP6H-ZNjNOa4_D-rCPV0s5QtZKw8osfsllYEDNvWfwGPreBA/formResponse', {
+      await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfP6H-ZNjNOa4_D-rCPV0s5QtZKw8osfsllYEDNvWfwGPreBA/formResponse', {
         method: 'POST',
         body: formData,
         mode: 'no-cors'
