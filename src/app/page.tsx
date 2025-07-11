@@ -443,6 +443,23 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           {/* ヒーローセクション */}
           <section id="home" className="text-center mb-16">
+            {/* 動画セクション */}
+            <div className="mb-8">
+              <div className="max-w-4xl mx-auto">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-auto rounded-lg shadow-lg"
+                  poster="/Wapeta.png"
+                >
+                  <source src="/Wapetatop.mp4" type="video/mp4" />
+                  お使いのブラウザは動画をサポートしていません。
+                </video>
+              </div>
+            </div>
+            
             <div className="mb-8">
               <div className="flex justify-center mb-6">
                 <Image 
@@ -478,7 +495,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-
+　　
           {/* サービス内容 */}
           <Section title={t('services.title')} id="services">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
