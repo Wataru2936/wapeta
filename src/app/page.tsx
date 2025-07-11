@@ -295,6 +295,8 @@ export default function Home() {
   // 追加: 動画表示・ナビ表示フラグ
   const [showVideo, setShowVideo] = useState(true);
   const [showNav, setShowNav] = useState(false);
+  // 追加: 動画ローディング状態
+  const [videoLoading, setVideoLoading] = useState(true);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
@@ -464,6 +466,13 @@ export default function Home() {
               <div className="md:hidden">
                 {showVideo && (
                   <div className="fixed inset-0 z-10">
+                    {/* Loadingオーバーレイ */}
+                    {videoLoading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 z-20">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                        <span className="text-white ml-4 text-lg">Loading...</span>
+                      </div>
+                    )}
                     <video
                       autoPlay
                       loop
@@ -472,6 +481,7 @@ export default function Home() {
                       preload="auto"
                       className="w-full h-full object-cover"
                       poster="/Wapeta.png"
+                      onCanPlay={() => setVideoLoading(false)}
                     >
                       <source src="/Wapetatop.mp4" type="video/mp4" />
                       お使いのブラウザは動画をサポートしていません。
