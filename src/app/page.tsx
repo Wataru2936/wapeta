@@ -450,26 +450,33 @@ export default function Home() {
                   autoPlay
                   loop
                   playsInline
-                  className="w-full h-auto rounded-lg shadow-lg cursor-pointer"
+                  className="w-full h-auto rounded-lg shadow-lg"
                   poster="/Wapeta.png"
-                  onClick={(e) => {
-                    const video = e.currentTarget;
-                    if (video.requestFullscreen) {
-                      video.requestFullscreen();
-                    } else if ((video as any).webkitRequestFullscreen) {
-                      (video as any).webkitRequestFullscreen();
-                    } else if ((video as any).msRequestFullscreen) {
-                      (video as any).msRequestFullscreen();
-                    }
-                  }}
-                  title="クリックして全画面表示"
                 >
                   <source src="/Wapetatop.mp4" type="video/mp4" />
                   お使いのブラウザは動画をサポートしていません。
                 </video>
-                <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
-                  全画面表示
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const video = e.currentTarget.parentElement?.querySelector('video');
+                    if (video) {
+                      if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                      } else if ((video as any).webkitRequestFullscreen) {
+                        (video as any).webkitRequestFullscreen();
+                      } else if ((video as any).msRequestFullscreen) {
+                        (video as any).msRequestFullscreen();
+                      }
+                    }
+                  }}
+                  className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12z" clipRule="evenodd" />
+                  </svg>
+                  <span>全画面</span>
+                </button>
               </div>
             </div>
             
