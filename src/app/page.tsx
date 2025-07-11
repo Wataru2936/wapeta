@@ -294,6 +294,9 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  // 追加: 動画表示・ナビ表示フラグ
+  const [showVideo, setShowVideo] = useState(true);
+  const [showNav, setShowNav] = useState(false);
 
   // クライアントサイドでのみ実行される処理
   useEffect(() => {
@@ -323,6 +326,20 @@ export default function Home() {
     // バックグラウンドで言語判定を実行
     detectLocale();
   }, [i18n, isClient]);
+
+  // スクロールで動画非表示・ナビ表示
+  useEffect(() => {
+    if (!isClient) return;
+    if (!showVideo) return;
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setShowVideo(false);
+        setShowNav(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isClient, showVideo]);
 
   // ナビゲーション関数
   const scrollToSection = (sectionId: string) => {
@@ -447,66 +464,68 @@ export default function Home() {
             <div className="mb-8">
               {/* モバイル: 画面全体に動画を表示 */}
               <div className="md:hidden">
-                <div className="fixed inset-0 z-10">
-                  <video
-                    autoPlay
-                    loop
-                    playsInline
-                    muted
-                    preload="auto"
-                    className="w-full h-full object-cover"
-                    poster="/Wapeta.png"
-                  >
-                    <source src="/Wapetatop.mp4" type="video/mp4" />
-                    お使いのブラウザは動画をサポートしていません。
-                  </video>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
-                      if (video) {
-                        if (video.requestFullscreen) {
-                          video.requestFullscreen();
-                        } else if ((video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
-                          (video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen!();
-                        } else if ((video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen) {
-                          (video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen!();
+                {showVideo && (
+                  <div className="fixed inset-0 z-10">
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                      poster="/Wapeta.png"
+                    >
+                      <source src="/Wapetatop.mp4" type="video/mp4" />
+                      お使いのブラウザは動画をサポートしていません。
+                    </video>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
+                        if (video) {
+                          if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                          } else if ((video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
+                            (video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen!();
+                          } else if ((video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen) {
+                            (video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen!();
+                          }
                         }
-                      }
-                    }}
-                    className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
-                  >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-                    </svg>
-                    <span>全画面</span>
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
-                      if (video) {
-                        video.muted = !video.muted;
-                        const button = e.currentTarget;
-                        const icon = button.querySelector('svg');
-                        const text = button.querySelector('span');
-                        if (video.muted) {
-                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06-1.06L14.56 12l2.22 2.22a.75.75 0 001.06-1.06L15.62 12l2.16-2.78z"/>';
-                          if (text) text.textContent = '音声OFF';
-                        } else {
-                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>';
-                          if (text) text.textContent = '音声ON';
+                      }}
+                      className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                      </svg>
+                      <span>全画面</span>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
+                        if (video) {
+                          video.muted = !video.muted;
+                          const button = e.currentTarget;
+                          const icon = button.querySelector('svg');
+                          const text = button.querySelector('span');
+                          if (video.muted) {
+                            if (icon) icon.innerHTML = '<path d=\"M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06-1.06L14.56 12l2.22 2.22a.75.75 0 001.06-1.06L15.62 12l2.16-2.78z\"/>';
+                            if (text) text.textContent = '音声OFF';
+                          } else {
+                            if (icon) icon.innerHTML = '<path d=\"M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z\"/>';
+                            if (text) text.textContent = '音声ON';
+                          }
                         }
-                      }
-                    }}
-                    className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
-                  >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>
-                    </svg>
-                    <span>音声OFF</span>
-                  </button>
-                </div>
+                      }}
+                      className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>
+                      </svg>
+                      <span>音声OFF</span>
+                    </button>
+                  </div>
+                )}
               </div>
               
               {/* デスクトップ: 横幅最大 */}
@@ -861,53 +880,17 @@ export default function Home() {
         </div>
       </main>
 
-      {/* モバイル用フッターナビゲーション */}
-      <footer className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
-        <div className="flex items-center justify-around py-2">
-          <button
-            onClick={() => scrollToSection('home')}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <Image 
-              src="/Wapeta.png" 
-              alt="Wapeta Logo" 
-              width={40}
-              height={40}
-              className="h-10 w-auto mb-1"
-            />
-          </button>
-          <button
-            onClick={() => scrollToSection('services')}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaCogs className="text-xl mb-1" />
-          </button>
-          <button
-            onClick={() => scrollToSection('about')}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaUserTie className="text-xl mb-1" />
-          </button>
-          <button
-            onClick={() => scrollToSection('works')}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaCogs className="text-xl mb-1" />
-          </button>
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaEnvelope className="text-xl mb-1" />
-          </button>
-          <button
-            onClick={() => setIsLanguageModalOpen(true)}
-            className="flex flex-col items-center p-2 text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaGlobe className="text-xl mb-1" />
-          </button>
-        </div>
-      </footer>
+      {/* 下部ナビゲーション */}
+      {showNav && (
+        <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg flex justify-around py-2 md:hidden transition-all">
+          {/* 既存のナビゲーションアイコン等をここに配置 */}
+          <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.home')}><FaHome className="text-xl" /></button>
+          <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.services')}><FaCogs className="text-xl" /></button>
+          <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.about')}><FaUserTie className="text-xl" /></button>
+          <button onClick={() => scrollToSection('works')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.works')}><FaCogs className="text-xl" /></button>
+          <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.contact')}><FaEnvelope className="text-xl" /></button>
+        </nav>
+      )}
 
       {/* コピー成功トースト */}
       {isClient && showCopyToast && (
