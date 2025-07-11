@@ -8,17 +8,15 @@ import {
   FaCogs, 
   FaUserTie, 
   FaEnvelope, 
-  FaGlobe, 
-  FaEnvelopeOpen,
-  FaTimes,
-  FaExternalLinkAlt,
   FaGlobeAmericas,
   FaGift,
   FaLaptop,
   FaTools,
   FaMobile,
   FaLightbulb,
-  FaCopy
+  FaCopy,
+  FaTimes,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
 import '../i18n';
 
@@ -854,7 +852,7 @@ export default function Home() {
                 <p className="text-gray-700 mb-6">{t('contact.method')}</p>
                 <div className="bg-blue-50 rounded-lg p-6">
                   <div className="text-2xl mb-4">
-                    <FaEnvelopeOpen className="text-blue-600 mx-auto" />
+                    <FaEnvelope className="text-blue-600 mx-auto" />
                   </div>
                   <div className="flex items-center justify-center space-x-3">
                     <a
