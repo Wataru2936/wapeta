@@ -463,14 +463,14 @@ export default function Home() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
                       if (video) {
                         if (video.requestFullscreen) {
                           video.requestFullscreen();
-                        } else if ((video as any).webkitRequestFullscreen) {
-                          (video as any).webkitRequestFullscreen();
-                        } else if ((video as any).msRequestFullscreen) {
-                          (video as any).msRequestFullscreen();
+                        } else if ((video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
+                          (video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen!();
+                        } else if ((video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen) {
+                          (video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen!();
                         }
                       }
                     }}
@@ -484,7 +484,7 @@ export default function Home() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
                       if (video) {
                         video.muted = !video.muted;
                         const button = e.currentTarget;
@@ -527,14 +527,14 @@ export default function Home() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
                       if (video) {
                         if (video.requestFullscreen) {
                           video.requestFullscreen();
-                        } else if ((video as any).webkitRequestFullscreen) {
-                          (video as any).webkitRequestFullscreen();
-                        } else if ((video as any).msRequestFullscreen) {
-                          (video as any).msRequestFullscreen();
+                        } else if ((video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
+                          (video as HTMLVideoElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen!();
+                        } else if ((video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen) {
+                          (video as HTMLVideoElement & { msRequestFullscreen?: () => void }).msRequestFullscreen!();
                         }
                       }
                     }}
@@ -548,7 +548,7 @@ export default function Home() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement | null;
                       if (video) {
                         video.muted = !video.muted;
                         const button = e.currentTarget;
