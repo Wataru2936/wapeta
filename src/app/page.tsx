@@ -445,85 +445,152 @@ export default function Home() {
           <section id="home" className="text-center mb-16">
             {/* 動画セクション */}
             <div className="mb-8">
-              <div className="max-w-4xl mx-auto relative">
-                <video
-                  autoPlay
-                  loop
-                  playsInline
-                  muted
-                  preload="auto"
-                  className="w-full h-auto rounded-lg shadow-lg"
-                  poster="/Wapeta.png"
-                >
-                  <source src="/Wapetatop.mp4" type="video/mp4" />
-                  お使いのブラウザは動画をサポートしていません。
-                </video>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const video = e.currentTarget.parentElement?.querySelector('video');
-                    if (video) {
-                      if (video.requestFullscreen) {
-                        video.requestFullscreen();
-                      } else if ((video as any).webkitRequestFullscreen) {
-                        (video as any).webkitRequestFullscreen();
-                      } else if ((video as any).msRequestFullscreen) {
-                        (video as any).msRequestFullscreen();
+              {/* モバイル: 画面全体に動画を表示 */}
+              <div className="md:hidden">
+                <div className="fixed inset-0 z-10">
+                  <video
+                    autoPlay
+                    loop
+                    playsInline
+                    muted
+                    preload="auto"
+                    className="w-full h-full object-cover"
+                    poster="/Wapeta.png"
+                  >
+                    <source src="/Wapetatop.mp4" type="video/mp4" />
+                    お使いのブラウザは動画をサポートしていません。
+                  </video>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      if (video) {
+                        if (video.requestFullscreen) {
+                          video.requestFullscreen();
+                        } else if ((video as any).webkitRequestFullscreen) {
+                          (video as any).webkitRequestFullscreen();
+                        } else if ((video as any).msRequestFullscreen) {
+                          (video as any).msRequestFullscreen();
+                        }
                       }
-                    }
-                  }}
-                  className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-                  </svg>
-                  <span>全画面</span>
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const video = e.currentTarget.parentElement?.querySelector('video');
-                    if (video) {
-                      video.muted = !video.muted;
-                                             const button = e.currentTarget;
-                       const icon = button.querySelector('svg');
-                       const text = button.querySelector('span');
-                       if (video.muted) {
-                         if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06-1.06L14.56 12l2.22 2.22a.75.75 0 001.06-1.06L15.62 12l2.16-2.78z"/>';
-                         if (text) text.textContent = '音声OFF';
-                       } else {
-                         if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>';
-                         if (text) text.textContent = '音声ON';
-                       }
-                    }
-                  }}
-                  className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>
-                  </svg>
-                  <span>音声OFF</span>
-                </button>
+                    }}
+                    className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                    <span>全画面</span>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      if (video) {
+                        video.muted = !video.muted;
+                        const button = e.currentTarget;
+                        const icon = button.querySelector('svg');
+                        const text = button.querySelector('span');
+                        if (video.muted) {
+                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06-1.06L14.56 12l2.22 2.22a.75.75 0 001.06-1.06L15.62 12l2.16-2.78z"/>';
+                          if (text) text.textContent = '音声OFF';
+                        } else {
+                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>';
+                          if (text) text.textContent = '音声ON';
+                        }
+                      }
+                    }}
+                    className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>
+                    </svg>
+                    <span>音声OFF</span>
+                  </button>
+                </div>
+              </div>
+              
+              {/* デスクトップ: 横幅最大 */}
+              <div className="hidden md:block">
+                <div className="w-full relative">
+                  <video
+                    autoPlay
+                    loop
+                    playsInline
+                    muted
+                    preload="auto"
+                    className="w-full h-auto rounded-lg shadow-lg"
+                    poster="/Wapeta.png"
+                  >
+                    <source src="/Wapetatop.mp4" type="video/mp4" />
+                    お使いのブラウザは動画をサポートしていません。
+                  </video>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      if (video) {
+                        if (video.requestFullscreen) {
+                          video.requestFullscreen();
+                        } else if ((video as any).webkitRequestFullscreen) {
+                          (video as any).webkitRequestFullscreen();
+                        } else if ((video as any).msRequestFullscreen) {
+                          (video as any).msRequestFullscreen();
+                        }
+                      }
+                    }}
+                    className="absolute top-4 right-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                    <span>全画面</span>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const video = e.currentTarget.parentElement?.querySelector('video');
+                      if (video) {
+                        video.muted = !video.muted;
+                        const button = e.currentTarget;
+                        const icon = button.querySelector('svg');
+                        const text = button.querySelector('span');
+                        if (video.muted) {
+                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06-1.06L14.56 12l2.22 2.22a.75.75 0 001.06-1.06L15.62 12l2.16-2.78z"/>';
+                          if (text) text.textContent = '音声OFF';
+                        } else {
+                          if (icon) icon.innerHTML = '<path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>';
+                          if (text) text.textContent = '音声ON';
+                        }
+                      }
+                    }}
+                    className="absolute top-4 left-4 bg-black bg-opacity-70 text-white px-3 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-all flex items-center space-x-1"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06z"/>
+                    </svg>
+                    <span>音声OFF</span>
+                  </button>
+                </div>
               </div>
             </div>
             
-            <div className="mb-8">
-              <div className="flex justify-center mb-6">
-                <Image 
-                  src="/Wapeta.png" 
-                  alt="Wapeta Logo" 
-                  width={500}
-                  height={500}
-                  className="h-40 md:h-64 w-auto"
-                />
-              </div>
-              <div className="text-xl md:text-2xl text-gray-700 mb-2">
-                <div>{t('company.ceo')}</div>
-                <div>({t('company.ceoTitle')})</div>
-              </div>
-              <div className="text-gray-600">
-                {t('company.location')} {t('company.locationNote')}
-              </div>
+            <div className="text-xl md:text-2xl text-gray-700 mb-2">
+              <div>{t('company.ceo')}</div>
+              <div>({t('company.ceoTitle')})</div>
+            </div>
+            <div className="text-gray-600">
+              {t('company.location')} {t('company.locationNote')}
+            </div>
+            
+            {/* Wapetaロゴ */}
+            <div className="flex justify-center mt-8">
+              <Image 
+                src="/Wapeta.png" 
+                alt="Wapeta Logo" 
+                width={500}
+                height={500}
+                className="h-40 md:h-64 w-auto"
+              />
             </div>
             
             {/* 重要なお知らせ */}
