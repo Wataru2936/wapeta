@@ -448,7 +448,6 @@ export default function Home() {
               <div className="max-w-4xl mx-auto">
                 <video
                   autoPlay
-                  muted
                   loop
                   playsInline
                   className="w-full h-auto rounded-lg shadow-lg"
