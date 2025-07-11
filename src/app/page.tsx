@@ -445,17 +445,31 @@ export default function Home() {
           <section id="home" className="text-center mb-16">
             {/* 動画セクション */}
             <div className="mb-8">
-              <div className="max-w-4xl mx-auto">
+              <div className="max-w-4xl mx-auto relative">
                 <video
                   autoPlay
                   loop
                   playsInline
-                  className="w-full h-auto rounded-lg shadow-lg"
+                  className="w-full h-auto rounded-lg shadow-lg cursor-pointer"
                   poster="/Wapeta.png"
+                  onClick={(e) => {
+                    const video = e.currentTarget;
+                    if (video.requestFullscreen) {
+                      video.requestFullscreen();
+                    } else if ((video as any).webkitRequestFullscreen) {
+                      (video as any).webkitRequestFullscreen();
+                    } else if ((video as any).msRequestFullscreen) {
+                      (video as any).msRequestFullscreen();
+                    }
+                  }}
+                  title="クリックして全画面表示"
                 >
                   <source src="/Wapetatop.mp4" type="video/mp4" />
                   お使いのブラウザは動画をサポートしていません。
                 </video>
+                <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                  全画面表示
+                </div>
               </div>
             </div>
             
