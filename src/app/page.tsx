@@ -16,7 +16,11 @@ import {
   FaLightbulb,
   FaCopy,
   FaTimes,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
+  FaHeart,
+  FaRocket,
+  FaGraduationCap,
+  FaBrain
 } from 'react-icons/fa';
 import '../i18n';
 
@@ -429,6 +433,13 @@ export default function Home() {
                 <FaCogs className="text-xl" />
               </button>
               <button
+                onClick={() => scrollToSection('company-vision')}
+                className="text-gray-700 hover:text-blue-600 transition-colors p-2"
+                title="社名の想い"
+              >
+                <FaHeart className="text-xl" />
+              </button>
+              <button
                 onClick={() => scrollToSection('about')}
                 className="text-gray-700 hover:text-blue-600 transition-colors p-2"
                 title={t('navigation.about')}
@@ -697,6 +708,81 @@ export default function Home() {
             </div>
           </Section>
 
+          {/* 社名の想い */}
+          <Section title="社名「Wapeta」に込めた想い" id="company-vision">
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="flex justify-center space-x-4 mb-6">
+                  <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">
+                    <FaHeart className="text-blue-600 text-2xl" />
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full">
+                    <FaRocket className="text-green-600 text-2xl" />
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full">
+                    <FaGraduationCap className="text-purple-600 text-2xl" />
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full">
+                    <FaBrain className="text-orange-600 text-2xl" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  Wapeta（ワペタ）の想い
+                </h3>
+              </div>
+              
+              <div className="space-y-6 text-gray-700 leading-relaxed">
+                <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                  <div className="flex items-start space-x-3">
+                    <FaHeart className="text-blue-600 text-xl mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-blue-800 mb-2">創業者の想い</h4>
+                      <p className="text-blue-700">
+                        <strong>Wapeta（ワペタ）の「Wa」</strong>は、創業者であり<em>"令和時代の小学生社長"</em>として注目を集める<strong>白石 亘（わたる）</strong>の頭文字に由来します。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+                  <div className="flex items-start space-x-3">
+                    <FaRocket className="text-green-600 text-xl mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-green-800 mb-2">テクノロジーの力</h4>
+                      <p className="text-green-700">
+                        そして<strong>「peta」</strong>は、デジタルの世界において膨大な情報を表す単位<strong>「ペタバイト（petabyte）」</strong>から取られています。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+                  <div className="flex items-start space-x-3">
+                    <FaGraduationCap className="text-purple-600 text-xl mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-purple-800 mb-2">未来へのビジョン</h4>
+                      <p className="text-purple-700">
+                        この二つを組み合わせた<strong>「Wapeta」</strong>は、<em>「一人の子どもが、世界を動かすほどの圧倒的な情報量と可能性を手にする」</em>という未来へのビジョンを象徴しています。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+                  <div className="flex items-start space-x-3">
+                    <FaBrain className="text-orange-600 text-xl mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-orange-800 mb-2">私たちの使命</h4>
+                      <p className="text-orange-700">
+                        私たちは、小さな一歩から始まりながらも、<strong>教育・IT・AIの世界でペタバイト級の価値を創出する存在</strong>になることを目指しています。まだ誰も想像していない領域に挑戦し、次世代の子どもたちがテクノロジーとともに夢をカタチにできる社会を築いていく。その先頭に立つのが<strong>Wapeta</strong>です。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Section>
+
           {/* 社長メッセージ */}
           <Section title={t('ceoMessage.title')} id="about">
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
@@ -894,6 +980,7 @@ export default function Home() {
           {/* 既存のナビゲーションアイコン等をここに配置 */}
           <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.home')}><FaHome className="text-xl" /></button>
           <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.services')}><FaCogs className="text-xl" /></button>
+          <button onClick={() => scrollToSection('company-vision')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title="社名の想い"><FaHeart className="text-xl" /></button>
           <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.about')}><FaUserTie className="text-xl" /></button>
           <button onClick={() => scrollToSection('works')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.works')}><FaCogs className="text-xl" /></button>
           <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.contact')}><FaEnvelope className="text-xl" /></button>
