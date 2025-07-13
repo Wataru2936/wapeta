@@ -8,6 +8,12 @@
   },
   "services": {
     "title": "Our Services",
+    "websiteTitle": "Website Creation",
+    "eventsTitle": "Special Event Website Creation",
+    "procurementTitle": "PC & IT Equipment Procurement",
+    "osSupportTitle": "Windows/OS Installation & Update Support",
+    "deviceSelectionTitle": "IT Device Selection & Procurement",
+    "consultingTitle": "IT Consulting Services",
     "website": "We create stylish, mobile-friendly websites tailored for individuals and businesses. Custom design options are available based on your needs.",
     "events": "We create special celebration websites for birthdays, weddings, and more—featuring photos and heartfelt messages to make memories last.",
     "procurement": "We assist you in selecting and purchasing the right PCs and IT devices. Perfect for beginners seeking reliable guidance.",
@@ -76,6 +82,26 @@
     "hachi": {
       "title": "Hachi Dental Clinic Gacha App",
       "description": "We scattered mechanisms to make people want to visit Hachi Dental Clinic again."
+    }
+  },
+  "companyVision": {
+    "title": "The Meaning Behind Our Company Name \"Wapeta\"",
+    "subtitle": "The Spirit of Wapeta",
+    "founder": {
+      "title": "The Founder's Vision",
+      "content": "The <strong>\"Wa\"</strong> in <strong>Wapeta</strong> comes from the initials of our founder, <strong>Wataru Shiraishi</strong>, who has gained attention as the <em>\"Elementary School Student CEO of the Reiwa Era\"</em>."
+    },
+    "technology": {
+      "title": "The Power of Technology",
+      "content": "The <strong>\"peta\"</strong> comes from <strong>\"petabyte\"</strong>, a unit representing vast amounts of information in the digital world."
+    },
+    "vision": {
+      "title": "Vision for the Future",
+      "content": "Combining these two elements, <strong>\"Wapeta\"</strong> symbolizes our vision of the future: <em>\"One child possessing overwhelming amounts of information and possibilities to move the world\"</em>."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "content": "We aim to become an entity that creates petabyte-level value in the world of education, IT, and AI, starting from small steps. We challenge uncharted territories and build a society where the next generation of children can shape their dreams together with technology. <strong>Wapeta</strong> leads this charge."
     }
   }
 } 

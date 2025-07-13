@@ -8,6 +8,12 @@
   },
   "services": {
     "title": "サービス内容",
+    "websiteTitle": "ホームページ作成",
+    "eventsTitle": "特別なイベント用サイト作成",
+    "procurementTitle": "パソコン・IT機器の購入代行",
+    "osSupportTitle": "Windows・OSのインストール／アップデート支援",
+    "deviceSelectionTitle": "ITデバイスの選定・購入代行",
+    "consultingTitle": "ITコンサルティング業務",
     "website": "個人・ビジネス用のホームページを、おしゃれで見やすく、スマートフォンにも対応したデザインで作成します。ご希望に応じたカスタマイズが可能です。",
     "events": "誕生日や結婚祝いなど、大切な人のための特別な記念サイトを制作します。思い出の写真やメッセージを美しくレイアウトして感動を届けます。",
     "procurement": "パソコンや周辺機器の選定から購入までをサポート。初心者の方でも安心して最適な機種を手に入れられます。",
@@ -76,6 +82,26 @@
     "hachi": {
       "title": "はち歯科医院ガチャアプリ",
       "description": "はち歯科医院にまた訪れたくなるような仕掛けを散りばめました。"
+    }
+  },
+  "companyVision": {
+    "title": "社名「Wapeta」に込めた想い",
+    "subtitle": "Wapeta（ワペタ）の想い",
+    "founder": {
+      "title": "創業者の想い",
+      "content": "<strong>Wapeta（ワペタ）の「Wa」</strong>は、創業者であり<em>\"令和時代の小学生社長\"</em>として注目を集める<strong>白石 亘（わたる）</strong>の頭文字に由来します。"
+    },
+    "technology": {
+      "title": "テクノロジーの力",
+      "content": "そして<strong>「peta」</strong>は、デジタルの世界において膨大な情報を表す単位<strong>「ペタバイト（petabyte）」</strong>から取られています。"
+    },
+    "vision": {
+      "title": "未来へのビジョン",
+      "content": "この二つを組み合わせた<strong>「Wapeta」</strong>は、<em>「一人の子どもが、世界を動かすほどの圧倒的な情報量と可能性を手にする」</em>という未来へのビジョンを象徴しています。"
+    },
+    "mission": {
+      "title": "私たちの使命",
+      "content": "私たちは、小さな一歩から始まりながらも、<strong>教育・IT・AIの世界でペタバイト級の価値を創出する存在</strong>になることを目指しています。まだ誰も想像していない領域に挑戦し、次世代の子どもたちがテクノロジーとともに夢をカタチにできる社会を築いていく。その先頭に立つのが<strong>Wapeta</strong>です。"
     }
   }
 } 

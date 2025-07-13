@@ -4,10 +4,16 @@
     "ceo": "시라이시 와타루",
     "ceoTitle": "초등학생 사장",
     "location": "후쿠오카현",
-    "locationNote": "（주소 상세는 비공개）"
+    "locationNote": "（Fukuoka city）"
   },
   "services": {
     "title": "서비스 내용",
+    "websiteTitle": "홈페이지 제작",
+    "eventsTitle": "특별한 이벤트용 사이트 제작",
+    "procurementTitle": "PC・IT 기기 구매 대행",
+    "osSupportTitle": "Windows・OS 설치／업데이트 지원",
+    "deviceSelectionTitle": "IT 디바이스 선정・구매 대행",
+    "consultingTitle": "IT 컨설팅 업무",
     "website": "개인 및 비즈니스를 위한 세련되고 모바일 친화적인 홈페이지를 제작해드립니다. 원하시는 스타일에 맞춰 커스터마이징도 가능합니다.",
     "events": "생일, 결혼 등 특별한 날을 위한 기념 사이트를 제작해드립니다. 사진과 메시지를 감동적으로 담아드립니다.",
     "procurement": "컴퓨터 및 주변 기기의 선택과 구매를 도와드립니다. 초보자도 안심하고 최적의 제품을 고를 수 있습니다.",
@@ -43,7 +49,43 @@
     "home": "홈",
     "services": "서비스",
     "about": "회사 정보",
+    "works": "제작 실적",
     "contact": "문의",
     "language": "언어"
+  },
+  "works": {
+    "title": "제작 실적",
+    "sourire": {
+      "title": "레스토랑 수리르",
+      "description": "미슐랭 1성급의 멋진 레스토랑에 다국적 고객에게 매력이 전해지도록 다국어 대응에 신경 썼습니다."
+    },
+    "maeda": {
+      "title": "마에다씨 술자리 앱",
+      "description": "술자리에서 룰렛으로 다음 주문을 정하는 엔터테인먼트가 되도록 의식했습니다."
+    },
+    "hachi": {
+      "title": "하치 치과 병원 가챠 앱",
+      "description": "하치 치과 병원에 또 방문하고 싶어지는 장치를 배치했습니다."
+    }
+  },
+  "companyVision": {
+    "title": "회사명 \"Wapeta\"에 담긴 마음",
+    "subtitle": "Wapeta（와페타）의 마음",
+    "founder": {
+      "title": "창업자의 마음",
+      "content": "<strong>Wapeta（와페타）의 \"Wa\"</strong>는 창업자이자 <em>\"레이와 시대의 초등학생 사장\"</em>으로 주목받는 <strong>시라이시 와타루</strong>의 머리글자에서 유래합니다."
+    },
+    "technology": {
+      "title": "기술의 힘",
+      "content": "그리고 <strong>\"peta\"</strong>는 디지털 세계에서 방대한 정보를 나타내는 단위 <strong>\"페타바이트（petabyte）\"</strong>에서 가져온 것입니다."
+    },
+    "vision": {
+      "title": "미래에 대한 비전",
+      "content": "이 둘을 조합한 <strong>\"Wapeta\"</strong>는 <em>\"한 아이가 세계를 움직일 만큼의 압도적인 정보량과 가능성을 손에 넣는다\"</em>는 미래에 대한 비전을 상징합니다."
+    },
+    "mission": {
+      "title": "우리의 사명",
+      "content": "우리는 작은 한 걸음에서 시작하지만 <strong>교육・IT・AI의 세계에서 페타바이트급 가치를 창출하는 존재</strong>가 되는 것을 목표로 합니다. 아직 아무도 상상하지 못한 영역에 도전하고, 차세대 아이들이 기술과 함께 꿈을 실현할 수 있는 사회를 구축해 나갑니다. 그 선두에 서는 것이 <strong>Wapeta</strong>입니다."
+    }
   }
 } 

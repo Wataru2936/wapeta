@@ -435,7 +435,7 @@ export default function Home() {
               <button
                 onClick={() => scrollToSection('company-vision')}
                 className="text-gray-700 hover:text-blue-600 transition-colors p-2"
-                title="社名の想い"
+                title={t('companyVision.title')}
               >
                 <FaHeart className="text-xl" />
               </button>
@@ -655,7 +655,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaGlobeAmericas className="text-blue-600 text-xl" />
-                    <span>ホームページ作成</span>
+                    <span>{t('services.websiteTitle')}</span>
                   </div>
                 }
                 description={t('services.website')}
@@ -664,7 +664,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaGift className="text-pink-600 text-xl" />
-                    <span>特別なイベント用サイト作成</span>
+                    <span>{t('services.eventsTitle')}</span>
                   </div>
                 }
                 description={t('services.events')}
@@ -673,7 +673,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaLaptop className="text-green-600 text-xl" />
-                    <span>パソコン・IT機器の購入代行</span>
+                    <span>{t('services.procurementTitle')}</span>
                   </div>
                 }
                 description={t('services.procurement')}
@@ -682,7 +682,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaTools className="text-orange-600 text-xl" />
-                    <span>Windows・OSのインストール／アップデート支援</span>
+                    <span>{t('services.osSupportTitle')}</span>
                   </div>
                 }
                 description={t('services.osSupport')}
@@ -691,7 +691,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaMobile className="text-purple-600 text-xl" />
-                    <span>ITデバイスの選定・購入代行</span>
+                    <span>{t('services.deviceSelectionTitle')}</span>
                   </div>
                 }
                 description={t('services.deviceSelection')}
@@ -700,7 +700,7 @@ export default function Home() {
                 title={
                   <div className="flex items-center space-x-2">
                     <FaLightbulb className="text-yellow-600 text-xl" />
-                    <span>ITコンサルティング業務</span>
+                    <span>{t('services.consultingTitle')}</span>
                   </div>
                 }
                 description={t('services.consulting')}
@@ -709,7 +709,7 @@ export default function Home() {
           </Section>
 
           {/* 社名の想い */}
-          <Section title="社名「Wapeta」に込めた想い" id="company-vision">
+          <Section title={t('companyVision.title')} id="company-vision">
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
               <div className="text-center mb-8">
                 <div className="flex justify-center space-x-4 mb-6">
@@ -727,7 +727,7 @@ export default function Home() {
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                  Wapeta（ワペタ）の想い
+                  {t('companyVision.subtitle')}
                 </h3>
               </div>
               
@@ -736,9 +736,9 @@ export default function Home() {
                   <div className="flex items-start space-x-3">
                     <FaHeart className="text-blue-600 text-xl mt-1 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-blue-800 mb-2">創業者の想い</h4>
+                      <h4 className="font-semibold text-blue-800 mb-2">{t('companyVision.founder.title')}</h4>
                       <p className="text-blue-700">
-                        <strong>Wapeta（ワペタ）の「Wa」</strong>は、創業者であり<em>"令和時代の小学生社長"</em>として注目を集める<strong>白石 亘（わたる）</strong>の頭文字に由来します。
+                        {t('companyVision.founder.content')}
                       </p>
                     </div>
                   </div>
@@ -748,9 +748,9 @@ export default function Home() {
                   <div className="flex items-start space-x-3">
                     <FaRocket className="text-green-600 text-xl mt-1 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-green-800 mb-2">テクノロジーの力</h4>
+                      <h4 className="font-semibold text-green-800 mb-2">{t('companyVision.technology.title')}</h4>
                       <p className="text-green-700">
-                        そして<strong>「peta」</strong>は、デジタルの世界において膨大な情報を表す単位<strong>「ペタバイト（petabyte）」</strong>から取られています。
+                        {t('companyVision.technology.content')}
                       </p>
                     </div>
                   </div>
@@ -760,9 +760,9 @@ export default function Home() {
                   <div className="flex items-start space-x-3">
                     <FaGraduationCap className="text-purple-600 text-xl mt-1 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-purple-800 mb-2">未来へのビジョン</h4>
+                      <h4 className="font-semibold text-purple-800 mb-2">{t('companyVision.vision.title')}</h4>
                       <p className="text-purple-700">
-                        この二つを組み合わせた<strong>「Wapeta」</strong>は、<em>「一人の子どもが、世界を動かすほどの圧倒的な情報量と可能性を手にする」</em>という未来へのビジョンを象徴しています。
+                        {t('companyVision.vision.content')}
                       </p>
                     </div>
                   </div>
@@ -772,9 +772,9 @@ export default function Home() {
                   <div className="flex items-start space-x-3">
                     <FaBrain className="text-orange-600 text-xl mt-1 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold text-orange-800 mb-2">私たちの使命</h4>
+                      <h4 className="font-semibold text-orange-800 mb-2">{t('companyVision.mission.title')}</h4>
                       <p className="text-orange-700">
-                        私たちは、小さな一歩から始まりながらも、<strong>教育・IT・AIの世界でペタバイト級の価値を創出する存在</strong>になることを目指しています。まだ誰も想像していない領域に挑戦し、次世代の子どもたちがテクノロジーとともに夢をカタチにできる社会を築いていく。その先頭に立つのが<strong>Wapeta</strong>です。
+                        {t('companyVision.mission.content')}
                       </p>
                     </div>
                   </div>
@@ -980,10 +980,11 @@ export default function Home() {
           {/* 既存のナビゲーションアイコン等をここに配置 */}
           <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.home')}><FaHome className="text-xl" /></button>
           <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.services')}><FaCogs className="text-xl" /></button>
-          <button onClick={() => scrollToSection('company-vision')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title="社名の想い"><FaHeart className="text-xl" /></button>
+          <button onClick={() => scrollToSection('company-vision')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('companyVision.title')}><FaHeart className="text-xl" /></button>
           <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.about')}><FaUserTie className="text-xl" /></button>
           <button onClick={() => scrollToSection('works')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.works')}><FaCogs className="text-xl" /></button>
           <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.contact')}><FaEnvelope className="text-xl" /></button>
+          <button onClick={() => setIsLanguageModalOpen(true)} className="text-gray-700 hover:text-blue-600 transition-colors p-2" title={t('navigation.language')}><FaGlobeAmericas className="text-xl" /></button>
         </nav>
       )}
 

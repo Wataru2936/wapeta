@@ -8,6 +8,12 @@
   },
   "services": {
     "title": "服务内容",
+    "websiteTitle": "网页制作",
+    "eventsTitle": "特别活动网站制作",
+    "procurementTitle": "电脑・IT设备代购",
+    "osSupportTitle": "Windows・操作系统安装／更新支持",
+    "deviceSelectionTitle": "IT设备选择・代购",
+    "consultingTitle": "IT咨询服务",
     "website": "为个人和企业打造时尚、适配手机的网页，并可根据您的需求进行个性化定制。",
     "events": "为生日、婚礼等特别场合制作纪念网站，精美呈现照片和祝福语，传达心意与感动。",
     "procurement": "为您代购电脑和相关设备，从选择到购买一站式服务，适合初学者。",
@@ -43,7 +49,43 @@
     "home": "首页",
     "services": "服务",
     "about": "公司信息",
+    "works": "制作实绩",
     "contact": "联系我们",
     "language": "语言"
+  },
+  "works": {
+    "title": "制作实绩",
+    "sourire": {
+      "title": "餐厅苏里尔",
+      "description": "为了让米其林一星餐厅的魅力传达给多国客户，我们注重多语言支持。"
+    },
+    "maeda": {
+      "title": "前田先生聚会应用",
+      "description": "我们创造了在聚会上用轮盘决定下一个订单的娱乐方式。"
+    },
+    "hachi": {
+      "title": "八齿牙科诊所扭蛋应用",
+      "description": "我们散布了让人们想要再次访问八齿牙科诊所的机制。"
+    }
+  },
+  "companyVision": {
+    "title": "公司名\"Wapeta\"所蕴含的心意",
+    "subtitle": "Wapeta（瓦佩塔）的心意",
+    "founder": {
+      "title": "创业者的心意",
+      "content": "<strong>Wapeta（瓦佩塔）的\"Wa\"</strong>来源于创业者<strong>白石亘</strong>的首字母，他作为<em>\"令和时代的小学生社长\"</em>而备受关注。"
+    },
+    "technology": {
+      "title": "技术的力量",
+      "content": "而<strong>\"peta\"</strong>则来源于数字世界中表示庞大信息量的单位<strong>\"拍字节（petabyte）\"</strong>。"
+    },
+    "vision": {
+      "title": "对未来的愿景",
+      "content": "将这两者结合而成的<strong>\"Wapeta\"</strong>象征着我们对未来的愿景：<em>\"一个孩子拥有足以撼动世界的压倒性信息量和可能性\"</em>。"
+    },
+    "mission": {
+      "title": "我们的使命",
+      "content": "我们致力于从一小步开始，成为在<strong>教育・IT・AI世界中创造拍字节级价值的存在</strong>。我们挑战无人想象的领域，构建下一代孩子们能够与技术一起实现梦想的社会。<strong>Wapeta</strong>站在这一前沿。"
+    }
   }
 } 
